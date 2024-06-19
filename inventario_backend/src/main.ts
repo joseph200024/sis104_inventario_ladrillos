@@ -11,10 +11,10 @@ async function bootstrap() {
   app.enableCors();
 
   const config = new DocumentBuilder()
-    .setTitle('API Rest FERRETERIA')
-    .setDescription('Backend de la Ferreteria "Todo en Uno"')
+    .setTitle('API Rest FABRICA')
+    .setDescription('Backend de la FABRICA')
     .setVersion('1.0')
-    .addTag('ferreteria')
+    .addTag('fabrica')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('apidoc', app, document);
