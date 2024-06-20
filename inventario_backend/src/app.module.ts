@@ -6,6 +6,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsuariosModule } from './usuarios/usuarios.module';
 import { ProveedoresModule } from './proveedores/proveedores.module';
 import { LadrillosModule } from './ladrillos/ladrillos.module';
+import { EmpleadosModule } from './empleados/empleados.module';
+import { MateriaprimasModule } from './materiaprimas/materiaprimas.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -24,6 +27,9 @@ import { LadrillosModule } from './ladrillos/ladrillos.module';
     UsuariosModule,
     ProveedoresModule,
     LadrillosModule,
+    EmpleadosModule,
+    MateriaprimasModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

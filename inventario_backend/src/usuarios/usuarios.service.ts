@@ -1,4 +1,9 @@
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -11,17 +16,21 @@ export class UsuariosService {
 
   async create(createUsuarioDto: CreateUsuarioDto): Promise<Usuario> {
     const existe = await this.usuariosRepository.findOneBy({
-      email: createUsuarioDto.email.trim(),
+      usuario: createUsuarioDto.usuario.trim(),
     });
 
     if (existe) {
-      throw new ConflictException('La usuario ya existe');
+      throw new ConflictException('El usuario ya existe');
     }
 
-    return this.usuariosRepository.save({
-      email: createUsuarioDto.email.trim(),
-      password: createUsuarioDto.password.trim(),
-    });
+    const usuario = new Usuario();
+    usuario.usuario = createUsuarioDto.usuario.trim();
+    usuario.clave = process.env.DEFAULT_PASSWORD;
+
+    const usuarioBd = await this.usuariosRepository.save(usuario);
+    delete usuarioBd.clave;
+
+    return usuarioBd;
   }
 
   async findAll(): Promise<Usuario[]> {
@@ -45,5 +54,21 @@ export class UsuariosService {
   async remove(id: number) {
     const usuario = await this.findOne(id);
     return this.usuariosRepository.delete(usuario.id);
+  }
+
+  async validate(usuario: string, clave: string): Promise<Usuario> {
+    const usuarioOk = await this.usuariosRepository.findOne({
+      where: { usuario },
+      select: ['id', 'usuario', 'clave'],
+    });
+
+    if (!usuarioOk) throw new NotFoundException('Usuario inexistente');
+
+    if (!(await usuarioOk?.validatePassword(clave))) {
+      throw new UnauthorizedException('Clave incorrecta');
+    }
+
+    delete usuarioOk.clave;
+    return usuarioOk;
   }
 }

@@ -7,7 +7,9 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class ProveedoresService {
-  constructor(@InjectRepository(Proveedore) private proveedoresRepository: Repository<Proveedore>) {}
+  constructor(
+    @InjectRepository(Proveedore) private proveedoresRepository: Repository<Proveedore>,
+  ) {}
 
   async create(createProveedoreDto: CreateProveedoreDto): Promise<Proveedore> {
     const existe = await this.proveedoresRepository.findOneBy({
