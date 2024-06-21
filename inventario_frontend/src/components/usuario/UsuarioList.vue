@@ -53,7 +53,6 @@ onMounted(() => {
           <tr>
             <th scope="col">N°</th>
             <th scope="col">Usuario</th>
-            <th scope="col">Clave</th>
             <th scope="col">Acciones</th>
           </tr>
         </thead>
@@ -61,7 +60,6 @@ onMounted(() => {
           <tr v-for="(usuario, index) in usuarios.values()" :key="usuario.id">
             <th scope="row">{{ index + 1 }}</th>
             <td>{{ usuario.usuario }}</td>
-            <td>{{ usuario.clave }}</td>
             <td>
               <button class="btn btn-link" @click="toEdit(usuario.id)">Editar</button>
               <button class="btn btn-link" @click="toDelete(usuario.id)">Eliminar</button>

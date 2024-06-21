@@ -5,14 +5,20 @@ import HelloWorld from './components/HelloWorld.vue'
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+    <img
+      alt="Vue logo"
+      class="logo"
+      src="@/assets/fabricadeladrillos.jpg"
+      width="400"
+      height="400"
+    />
 
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+      <HelloWorld msg="FÁBRICA DE LADRILLOS 'ELVIA'" />
 
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/">Sobre Nosotros</RouterLink>
+        <RouterLink to="/about">Ambiente Laboral</RouterLink>
         <RouterLink to="/usuarios">Usuarios</RouterLink>
         <RouterLink to="/empleados">Empleados</RouterLink>
         <RouterLink to="/proveedores">Prooveedores</RouterLink>
